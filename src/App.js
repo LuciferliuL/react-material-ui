@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
-
-import ComponentA from './component/ComponentList/ComponentA'
-import ComponentB from './component/ComponentList/ComponentB'
-import DropDownMenuRight from './component/DropDownMenu/DropDownMenu'
-
-import Button_L from './component/Button_L/Button_L'
+import 'element-theme-default'
+import {Layout, Menu} from 'element-react'
+import MenuRight from './component/MenuRight/MenuRight'
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Button_L name={123}></Button_L>
+        <Layout.Row>
+          <Layout.Col span='3'>
+            <MenuRight></MenuRight>
+          </Layout.Col>
+          <Layout.Col span='21'>123</Layout.Col>
+        </Layout.Row>
       </div>
     );
   }

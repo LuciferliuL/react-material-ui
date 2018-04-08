@@ -1,0 +1,8 @@
+a{
+    display: inline-block;
+    width: 100%;
+}
+.bottomDiv{
+    position: fixed;
+    bottom: 0;
+}

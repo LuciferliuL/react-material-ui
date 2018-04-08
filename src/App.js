@@ -62,7 +62,7 @@ class App extends Component {
               <Menu.SubMenu
                 title={<span> <i className="el-icon-share"></i>菜单 </span>}
                 index="4">
-                <Menu.Item index="4-1">
+                <Menu.Item index="4-1"> 
                   <Link to="/ComponentA">ComponentA</Link>
                 </Menu.Item>
                 <Menu.Item index="4-2">

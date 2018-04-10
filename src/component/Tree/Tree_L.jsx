@@ -2,7 +2,7 @@ import React from 'react';
 import {Tree, Input} from 'element-react'
 import  'isomorphic-fetch'
 
-import {compare, TreeMath, IPserver} from '../BaseFun/BaseFun'
+import {TreeMath, IPserver, TreeMathFloat} from '../BaseFun/BaseFun'
 
 export default class TreeL extends React.Component{
     constructor(props) {
@@ -23,11 +23,10 @@ export default class TreeL extends React.Component{
         return res.json()
       })
       .then(res=>{
-        let dataCurrent = new Array(),count=0
-        this.setState({
-          data : TreeMath(res)
-        })
         
+        this.setState({
+          data : TreeMathFloat(res,4)
+        })       
       })
       .catch((resolve)=>{
         console.log(resolve)

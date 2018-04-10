@@ -21,15 +21,15 @@ export {compare}
 /**
  * 树结构算法
  * data数据
+ * 从顶向下遍历
  */
 function TreeMath(data) {
     let dataCurrent = new Array()
     data.sort(compare('LevelString'))
     data.map((v) => {
-        if (v.LevelString.length === 2) {
+        if (v.LevelString.length === 2) {//第一层
             newFunction(v);
-            console.log(2)
-        } else if (v.LevelString.length === 4) {
+        } else if (v.LevelString.length === 4) {//第二层
             dataCurrent.map((value1) => {
                 if (value1.PK === Number(v.OriginalGuidString)) {
                     childrenFunction(value1, v)
@@ -38,26 +38,18 @@ function TreeMath(data) {
             })
         } else if (v.LevelString.length === 6) {
             dataCurrent.map((value2) => {
-                childrenMap(value2, v)
+                childrenMap(value2, v, 0)
                 return false
             })
         } else if (v.LevelString.length === 8) {
             dataCurrent.map((value3) => {
-                value3.children.map((value) => {
-                    value
-                        .children
-                        .map((mapvalue) => {
-                            childrenMap(mapvalue, v)
-                            return true
-                        })
-                    return true
-                })
-                return false
+                childrenMap(value3, v, 1)
+            return false
             })
         }
         return false
     })
-    console.log(dataCurrent)
+    // console.log(dataCurrent)
     return dataCurrent
 
     function newFunction(v) {
@@ -70,12 +62,24 @@ function TreeMath(data) {
             .push(new obj(v.LevelString, v.Caption, [], v.OriginalGuidString, v.PK))
     }
 
-    function childrenMap(v, CurrentV) {
+    /**
+     * 
+     * @param {对比值} v 
+     * @param {实际值} CurrentV 
+     * @param {层级} key 
+     */
+    function childrenMap(v, CurrentV, key) {
         v
             .children
             .map((value) => {
-                if (value.PK === Number(CurrentV.OriginalGuidString)) {
-                    childrenFunction(value, CurrentV)
+                if(key > 0 ){
+                    childrenMap(value, CurrentV)
+                    key--
+                    return true
+                }else{
+                    if (value.PK === Number(CurrentV.OriginalGuidString)) {
+                        childrenFunction(value, CurrentV)
+                    }
                 }
                 return true
             })
@@ -91,13 +95,60 @@ function TreeMath(data) {
 export {TreeMath}
 
 /**
+ * 
+ * @param {数据源} data 
+ * @param {层级深度} tier 
+ */
+function TreeMathFloat(data,tier){
+    data.sort(compare('LevelString'))
+    // console.log(data)
+    var  TierArr = new Array()
+    for (var  i = 0; i < tier; i++) {
+        TierArr[i] = new Array()
+    }
+    data.map((v)=>{
+        if(v.LevelString.length === 2){
+            v = new obj(v.LevelString, v.Caption, [], v.OriginalGuidString, v.PK)
+            return TierArr[0].push(v)
+        }else if(v.LevelString.length === 4){
+            v = new obj(v.LevelString, v.Caption, [], v.OriginalGuidString, v.PK)
+            return TierArr[1].push(v)
+        }else if(v.LevelString.length === 6){
+            v = new obj(v.LevelString, v.Caption, [], v.OriginalGuidString, v.PK)
+            return TierArr[2].push(v)
+        }else if(v.LevelString.length === 8){
+            v = new obj(v.LevelString, v.Caption, [], v.OriginalGuidString, v.PK)
+            return TierArr[3].push(v)
+        }
+    })
+    var newArr = new Array()
+    for(var j = tier - 1;j > -1; j --){ 
+        newArr = traverse(TierArr[j],newArr)
+    } 
+    // console.log(newArr)
+    return newArr
+
+    function traverse(Target, Origin){
+        Target.map((TargetValue)=>{
+            for(var K = 0; K < Origin.length;K ++){
+                if(TargetValue.PK === Origin[K].OriginalGuidString){
+                    TargetValue.children.push(Origin[K])
+                }
+            }
+        })
+        return Target;
+    }
+}
+
+export {TreeMathFloat}
+/**
  * 构造函数创建一个Tree需要的对象
  */
 function obj(id, label, children, OriginalGuidString, PK) {
     this.id = id;
     this.label = label;
     this.children = children;
-    this.OriginalGuidString = OriginalGuidString;
+    this.OriginalGuidString = Number(OriginalGuidString);
     this.PK = PK;
 }
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'element-theme-default'
-import {Layout, Menu, Button} from 'element-react'
+import {Layout, Menu} from 'element-react'
 import {BrowserRouter, Route, Link} from 'react-router-dom';
 
 import ComponentA from './component/ComponentList/ComponentA';

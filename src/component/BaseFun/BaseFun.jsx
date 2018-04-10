@@ -24,7 +24,7 @@ export {compare}
  * 从顶向下遍历
  */
 function TreeMath(data) {
-    let dataCurrent = new Array()
+    let dataCurrent = []
     data.sort(compare('LevelString'))
     data.map((v) => {
         if (v.LevelString.length === 2) {//第一层
@@ -84,12 +84,6 @@ function TreeMath(data) {
                 return true
             })
     }
-
-    function Map(value, v, fn) {
-        if (value.PK === Number(v.OriginalGuidString)) {
-            fn()
-        }
-    }
 }
 
 export {TreeMath}
@@ -102,9 +96,9 @@ export {TreeMath}
 function TreeMathFloat(data,tier){
     data.sort(compare('LevelString'))
     // console.log(data)
-    var  TierArr = new Array()
+    var  TierArr = []
     for (var  i = 0; i < tier; i++) {
-        TierArr[i] = new Array()
+        TierArr[i] = []
     }
     data.map((v)=>{
         if(v.LevelString.length === 2){
@@ -120,8 +114,9 @@ function TreeMathFloat(data,tier){
             v = new obj(v.LevelString, v.Caption, [], v.OriginalGuidString, v.PK)
             return TierArr[3].push(v)
         }
+        return true
     })
-    var newArr = new Array()
+    var newArr = []
     for(var j = tier - 1;j > -1; j --){ 
         newArr = traverse(TierArr[j],newArr)
     } 
@@ -135,6 +130,7 @@ function TreeMathFloat(data,tier){
                     TargetValue.children.push(Origin[K])
                 }
             }
+            return true
         })
         return Target;
     }

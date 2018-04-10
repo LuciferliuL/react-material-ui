@@ -1,7 +1,7 @@
 import React from 'react'
 import {Tabs} from 'element-react';
 
-import TreeL from '../Tree/Tree_L'
+import TreeL from '../Tree/TreeL'
 export default class Tabs_L extends React.Component {
     render() {
         return (

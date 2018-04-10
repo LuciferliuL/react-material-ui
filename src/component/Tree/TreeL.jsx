@@ -2,7 +2,7 @@ import React from 'react';
 import {Tree, Input} from 'element-react'
 import  'isomorphic-fetch'
 
-import {TreeMath, IPserver, TreeMathFloat} from '../BaseFun/BaseFun'
+import {IPserver, TreeMathFloat} from '../BaseFun/BaseFun'
 
 export default class TreeL extends React.Component{
     constructor(props) {
@@ -33,9 +33,21 @@ export default class TreeL extends React.Component{
       })
     }  
 
+    onNodeClicked(nodeModel, node){
+      // console.log(nodeModel.PK)
+      fetch('http://' + IPserver(false) + '/api/Menu/GetMenuInfoForPK?pk=' + nodeModel.PK,{method:"GET"})
+      .then(res=>{
+        return res.json()
+      })
+      .then(res=>{
+        console.log(res)
+      })
+      .catch((resolve)=>{
+        console.log(resolve)
+      })
+    }
       render() {
         const { data, options } = this.state
-      
         return (
           <div>
             <Input placeholder="输入关键字进行过滤" onChange={text=> this.tree.filter(text)} />
@@ -47,6 +59,7 @@ export default class TreeL extends React.Component{
               nodeKey="id"
               accordion={true}
               defaultExpandAll={false}
+              onNodeClicked={this.onNodeClicked.bind(this)}
               filterNodeMethod={(value, data)=>{
                 if (!value) return true;
                 return data.label.indexOf(value) !== -1;

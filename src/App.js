@@ -73,7 +73,7 @@ class App extends Component {
             </Menu>
             <div className="bottomDiv">123</div>
           </Layout.Col>
-          <Layout.Col span='21'>
+          <Layout.Col span='21' md="21" sm="21">
             <Route path="/ComponentA" component={ComponentA}></Route>
             <Route path="/ComponentB" component={ComponentB}></Route>
           </Layout.Col>

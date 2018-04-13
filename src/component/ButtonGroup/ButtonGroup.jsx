@@ -1,13 +1,13 @@
 import React from 'react';
-import {Button} from 'element-react';
+import { Button } from 'element-react';
 
-export default class ButtonGroup extends React.Component{
-  constructor(props){
+export default class ButtonGroup extends React.Component {
+  constructor(props) {
     super(props)
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <div>
         <Button.Group>
           <Button type="primary">添加根</Button>

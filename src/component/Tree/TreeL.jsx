@@ -14,6 +14,7 @@ export default class TreeL extends React.Component{
             children: 'children',
             label: 'label'
           }
+  
         }
       }
     
@@ -23,9 +24,9 @@ export default class TreeL extends React.Component{
         return res.json()
       })
       .then(res=>{
-        
         this.setState({
-          data : TreeMathFloat(res,4)
+          data : TreeMathFloat(res,4),
+          fullscreen: false
         })       
       })
       .catch((resolve)=>{

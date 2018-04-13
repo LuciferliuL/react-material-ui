@@ -18,6 +18,7 @@ export default class TreeL extends React.Component{
         }
       }
     
+      
     componentDidMount(){
       fetch('http://'+IPserver(false)+'/api/Menu/GetMenuByCatalog?catalog=GOS',{method:"GET"})
       .then(res=>{

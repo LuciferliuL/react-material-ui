@@ -19,6 +19,16 @@ export default class RootTable extends React.Component {
     e.preventDefault();
 
     console.log(this.state.form)
+    setTimeout(() => {
+      this.setState({
+        form: Object.assign(this.state.form,{
+          name: '',
+          region: '',
+          type: ''
+        })
+      })
+    }, 10000);
+    
   }
 
   onChange(key, value) {

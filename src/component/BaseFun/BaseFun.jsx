@@ -19,6 +19,7 @@ function compare(propertyName) {
 
 export { compare }
 
+
 /**
  * 树结构算法
  * data数据

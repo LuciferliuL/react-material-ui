@@ -1,4 +1,4 @@
-import  'isomorphic-fetch'
+import 'isomorphic-fetch'
 /**
  * 数组排序
  * 排序name
@@ -165,13 +165,54 @@ function IPserver(TF) {
 export { IPserver }
 
 
-function getFetch(URL){
-    return new Promise((fulfilled, reject)=>{
-        fetch(URL,{method:"GET"})
-    .then((response)=>response.json())
-    .then(data=>fulfilled(data))
-    .catch(error=>reject(error))
+function getFetch(URL) {
+    return new Promise((fulfilled, reject) => {
+        fetch(URL, { method: "GET" })
+            .then((response) => response.json())
+            .then(data => fulfilled(data))
+            .catch(error => reject(error))
     })
 }
 
 export { getFetch }
+
+function getTime() {
+    var myDate = new Date()
+    var mytime
+    myDate.toLocaleDateString()
+    myDate.getFullYear()
+    myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+    myDate.getDate();        //获取当前日(1-31)
+    myDate.getDay();         //获取当前星期X(0-6,0代表星期天)
+    myDate.getHours();       //获取当前小时数(0-23)
+    myDate.getMinutes();     //获取当前分钟数(0-59)
+    myDate.getSeconds();     //获取当前秒数(0-59)
+    switch (myDate.getDay()) {
+        case 0:
+            mytime = `${myDate.getFullYear()}-${myDate.getMonth() + 1}-${myDate.getDate()}S${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`
+            break;
+        case 1:
+            mytime = `${myDate.getFullYear()}-${myDate.getMonth() + 1}-${myDate.getDate()}M${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`
+            break;
+        case 2:
+            mytime = `${myDate.getFullYear()}-${myDate.getMonth() + 1}-${myDate.getDate()}T${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`
+            break;
+        case 3:
+            mytime = `${myDate.getFullYear()}-${myDate.getMonth() + 1}-${myDate.getDate()}W${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`
+            break
+        case 4:
+            mytime = `${myDate.getFullYear()}-${myDate.getMonth() + 1}-${myDate.getDate()}T${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`
+            break;
+        case 5:
+            mytime = `${myDate.getFullYear()}-${myDate.getMonth() + 1}-${myDate.getDate()}F${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`
+            break;
+        case 6:
+            mytime = `${myDate.getFullYear()}-${myDate.getMonth() + 1}-${myDate.getDate()}S${myDate.getHours()}:${myDate.getMinutes()}:${myDate.getSeconds()}`
+            break;
+        default:
+            mytime = null
+    }
+    return mytime
+}
+
+export { getTime }

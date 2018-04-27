@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Dialog } from 'element-react';
+import { Button} from 'element-react';
 
 import RootTableDiaLog from '../RootTable/RootTableDiaLog'
 
@@ -8,7 +8,7 @@ export default class ButtonGroup extends React.Component {
     super(props)
     this.state = {
       RootData : {
-        PK : 0,
+        PK : '',
         dialogVisible : false
       }
     }
@@ -19,9 +19,18 @@ export default class ButtonGroup extends React.Component {
     if(target === 'Root'){
       this.setState({
         RootData : {
-          PK : Form.PK,
-          dialogVisible : true
+          PK : 0,
+          dialogVisible : true,
+          form:Form
         }
+      })
+    }else if(target === 'Level'){
+      this.setState({
+        RootData : {
+          PK : 1,
+          dialogVisible : true,
+          form:Form
+        } 
       })
     }
   }

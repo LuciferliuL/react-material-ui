@@ -12,29 +12,40 @@ const valueName = [
   { label: '备注', value: 'Note' }
 ]
 export default class RootTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      form: {
-        Author: '',
-        Action: '',
-        Caption: '',
-        ImgeCode: '',
-        Param1: '',
-        Param2: '',
-        Note: ''
-      }
-    }
-  }
   handleChange(key, value) {
-    this.setState({
-      form: Object.assign(this.state.form, { [key]: value })
-    });
+    this.props.handleChange(key,value)
   }
   render() {
     const Forms = this.props.Forms
+    const data = this.props.data
     let items = []
-    if(Forms.PK != -999){
+    if(Forms.PK === 0){//新增
+      valueName.map((v,index) => {
+        items.push(
+          <Form.Item label={v.label} key={index}>
+            <Input
+              value={data[v.value]}
+            //bind里面可以绑定的东西  this的指向 查阅
+            onChange={this.handleChange.bind(this, v.value)}
+            ></Input>
+          </Form.Item>
+        )
+        return true
+      })
+    }else if(Forms.PK === 1){//新增下级
+      valueName.map((v,index) => {
+        items.push(
+          <Form.Item label={v.label} key={index}>
+            <Input
+              value={data[v.value]}
+              onChange={this.handleChange.bind(this, v.value)}
+            //bind里面可以绑定的东西  this的指向 查阅
+            ></Input>
+          </Form.Item>
+        )
+        return true
+      })
+    }else{//默认
       valueName.map((v,index) => {
         items.push(
           <Form.Item label={v.label} key={index}>
@@ -44,18 +55,7 @@ export default class RootTable extends React.Component {
             ></Input>
           </Form.Item>
         )
-      })
-    }else{
-      valueName.map((v,index) => {
-        items.push(
-          <Form.Item label={v.label} key={index}>
-            <Input
-              value={this.state.form[v.value]}
-              onChange={this.handleChange.bind(this, v.value)}
-            //bind里面可以绑定的东西  this的指向 查阅
-            ></Input>
-          </Form.Item>
-        )
+        return true
       })
     }
     return (

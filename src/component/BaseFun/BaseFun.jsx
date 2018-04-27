@@ -1,3 +1,4 @@
+import  'isomorphic-fetch'
 /**
  * 数组排序
  * 排序name
@@ -162,3 +163,15 @@ function IPserver(TF) {
 }
 
 export { IPserver }
+
+
+function getFetch(URL){
+    return new Promise((fulfilled, reject)=>{
+        fetch(URL,{method:"GET"})
+    .then((response)=>response.json())
+    .then(data=>fulfilled(data))
+    .catch(error=>reject(error))
+    })
+}
+
+export { getFetch }

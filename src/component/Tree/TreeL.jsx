@@ -6,21 +6,19 @@ import {IPserver, TreeMathFloat} from '../BaseFun/BaseFun'
 
 export default class TreeL extends React.Component{
     constructor(props) {
-        super(props);
-      
+        super(props);     
         this.state = {
           data: [],
           options: {
             children: 'children',
             label: 'label'
           }
-  
         }
       }
     
       
     componentDidMount(){
-      fetch('http://'+IPserver(false)+'/api/Menu/GetMenuByCatalog?catalog=GOS',{method:"GET"})
+      fetch('http://'+IPserver(true)+'/api/Menu/GetMenuByCatalog?catalog=GOS',{method:"GET"})
       .then(res=>{
         return res.json()
       })
@@ -37,18 +35,28 @@ export default class TreeL extends React.Component{
 
     onNodeClicked(nodeModel, node){
       // console.log(nodeModel.PK)
-      fetch('http://' + IPserver(false) + '/api/Menu/GetMenuInfoForPK?pk=' + nodeModel.PK,{method:"GET"})
+      fetch('http://' + IPserver(true) + '/api/Menu/GetMenuInfoForPK?pk=' + nodeModel.PK,{method:"GET"})
       .then(res=>{
         return res.json()
       })
       .then(res=>{
-        console.log(res)
+        // console.log(res)
+        this.props.FormsChange(res)
       })
       .catch((resolve)=>{
         console.log(resolve)
       })
     }
+    
+    shouldComponentUpdate(event){
+      // console.log(Counts)
+      if(event.Counts === 1){
+        return false
+      }
+     return true
+    }
       render() {
+        // const Counts= this.props.Counts
         const { data, options } = this.state
         return (
           <div>
@@ -59,7 +67,8 @@ export default class TreeL extends React.Component{
               data={data}
               options={options}
               nodeKey="id"
-              accordion={true}
+              highlightCurrent={true}
+              accordion={false}
               defaultExpandAll={false}
               onNodeClicked={this.onNodeClicked.bind(this)}
               filterNodeMethod={(value, data)=>{

@@ -16,9 +16,7 @@ export default class ComponentA extends React.Component {
         this.state = {
             labelPosition: 'rigth',
             form: {
-                name: '',
-                region: '',
-                type: ''
+                PK:10086
             },
             counts: 0
         };
@@ -31,7 +29,11 @@ export default class ComponentA extends React.Component {
             form: Object.assign(this.state.form, form),
             counts: 1
         })
-
+    }
+    Refresh(){
+        this.setState({
+            counts:0
+        })
     }
     render() {
         const form = this.state.form
@@ -40,7 +42,7 @@ export default class ComponentA extends React.Component {
             <div>
                 <Layout.Row>
                     <Layout.Col md="8" sm="8" lg="6">
-                        <ButtonGroup Datas={form}></ButtonGroup>
+                        <ButtonGroup Datas={form} Refresh={this.Refresh.bind(this)}></ButtonGroup>
                         <TreeL FormsChange={this.FormsChange} Counts={counts}></TreeL>
                     </Layout.Col>
                     <Layout.Col md="16" sm="16" lg="18">

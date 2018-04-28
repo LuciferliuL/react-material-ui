@@ -46,7 +46,7 @@ export default class RootTableDiaLog extends React.Component {
             data: Object.assign(this.state.data, { [key]: value })
         });
     }
-    clearData(){
+    clearData() {
         this.setState({
             data: {
                 Action: '',
@@ -81,79 +81,93 @@ export default class RootTableDiaLog extends React.Component {
             }
         })
     }
+    //有数据的改变就可以使用
+    componentWillReceiveProps(nextprops){
+        // console.log(nextprops)
+        if(nextprops.RootData.PK === 2){
+            this.setState({
+                data:nextprops.RootData.form
+            })
+        }
+    }
     render() {
-        const RootData = this.props.RootData//包含所有数据
-        const data = this.state.data//空数据
+        const RootData = this.props.RootData//包含所有数据      
         //RootData.PK为0就是新增   为PK就是上一个带来的PK
         if (RootData.PK === 0) {
+            const data = this.state.data//空数据
             return (
                 <Dialog
                     title="添加根"
                     visible={RootData.dialogVisible}
-                    onCancel={(e) => {this.props.ChooseVisible();this.clearData()}}
+                    onCancel={(e) => { this.props.ChooseVisible(); this.clearData() }}
                 >
                     <Dialog.Body>
                         <RootTable Forms={RootData} data={data} handleChange={this.handleChange.bind(this)}></RootTable>
                     </Dialog.Body>
                     <Dialog.Footer className="dialog-footer">
-                        <Button onClick={(e) => {this.props.ChooseVisible();this.clearData()}}>取 消</Button>
+                        <Button onClick={(e) => { this.props.ChooseVisible(); this.clearData() }}>取 消</Button>
                         <Button type="primary" onClick={this.Submits.bind(this)} nativeType='submit'>确 定</Button>
                     </Dialog.Footer>
                 </Dialog>
             )
         } else if (RootData.PK === 1) {
+            const data = this.state.data//空数据
             return (
                 <Dialog
                     title="添加下级"
                     visible={RootData.dialogVisible}
-                    onCancel={(e) => {this.props.ChooseVisible();this.clearData()}}
+                    onCancel={(e) => { this.props.ChooseVisible(); this.clearData() }}
                 >
                     <Dialog.Body>
                         <RootTable Forms={RootData} data={data} handleChange={this.handleChange.bind(this)}></RootTable>
                     </Dialog.Body>
                     <Dialog.Footer className="dialog-footer">
-                        <Button onClick={(e) => {this.props.ChooseVisible();this.clearData()}}>取 消</Button>
+                        <Button onClick={(e) => { this.props.ChooseVisible(); this.clearData() }}>取 消</Button>
+                        <Button type="primary" onClick={this.Submits.bind(this)} nativeType='submit'>确 定</Button>
+                    </Dialog.Footer>
+                </Dialog>
+            )
+        } else if (RootData.PK === 2) {
+            return (
+                <Dialog
+                    title="编辑"
+                    visible={RootData.dialogVisible}
+                    onCancel={(e) => { this.props.ChooseVisible(); this.clearData() }}
+                >
+                    <Dialog.Body>
+                        <RootTable Forms={RootData} data={RootData} handleChange={this.handleChange.bind(this)}></RootTable>
+                    </Dialog.Body>
+                    <Dialog.Footer className="dialog-footer">
+                        <Button onClick={(e) => { this.props.ChooseVisible(); this.clearData() }}>取 消</Button>
                         <Button type="primary" onClick={this.Submits.bind(this)} nativeType='submit'>确 定</Button>
                     </Dialog.Footer>
                 </Dialog>
             )
         } else {
             return (
-                <Dialog
-                    title="添加下级"
-                    visible={RootData.dialogVisible}
-                    onCancel={(e) => {this.props.ChooseVisible();this.clearData()}}
-                >
-                    <Dialog.Body>
-                        <RootTable Forms={RootData} data={data} handleChange={this.handleChange.bind(this)}></RootTable>
-                    </Dialog.Body>
-                    <Dialog.Footer className="dialog-footer">
-                        <Button onClick={(e) => {this.props.ChooseVisible();this.clearData()}}>取 消</Button>
-                        <Button type="primary" onClick={this.Submits.bind(this)} nativeType='submit'>确 定</Button>
-                    </Dialog.Footer>
-                </Dialog>
+                <div></div>
             )
         }
     }
     Submits(e) {
         console.log(this.state.data)
-        let myHeaders = new Headers();
-        myHeaders.append('Content-Type', 'application/json');
-        let request = new Request('./api', {
-            method: 'POST',
-            mode: 'cors',
-            body: JSON.stringify(this.state.data),
-            headers: myHeaders
-        });
-        fetch(request)
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                this.props.ChooseVisible()
-            })
-            .catch(res => {
-                console.log(res)
-            })
+        // let myHeaders = new Headers();
+        // myHeaders.append('Content-Type', 'application/json');
+        // let request = new Request('./api', {
+        //     method: 'POST',
+        //     mode: 'cors',
+        //     body: JSON.stringify(this.state.data),
+        //     headers: myHeaders
+        // });
+        // fetch(request)
+        //     .then(response => response.json())
+        //     .then(result => {
+        //         console.log(result)
+        //         this.props.ChooseVisible()
+        //     })
+        //     .catch(res => {
+        //         console.log(res)
+        //     })
 
     }
 }

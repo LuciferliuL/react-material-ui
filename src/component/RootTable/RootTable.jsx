@@ -19,7 +19,7 @@ export default class RootTable extends React.Component {
     const Forms = this.props.Forms
     const data = this.props.data
     let items = []
-    if(Forms.PK === 0){//新增
+    if(Forms.PK === 0 || Forms.PK === 1){//新增
       valueName.map((v,index) => {
         items.push(
           <Form.Item label={v.label} key={index}>
@@ -32,12 +32,12 @@ export default class RootTable extends React.Component {
         )
         return true
       })
-    }else if(Forms.PK === 1){//新增下级
+    }else if(Forms.PK === 2){//编辑
       valueName.map((v,index) => {
         items.push(
           <Form.Item label={v.label} key={index}>
             <Input
-              value={data[v.value]}
+              value={data.form[v.value]}
               onChange={this.handleChange.bind(this, v.value)}
             //bind里面可以绑定的东西  this的指向 查阅
             ></Input>

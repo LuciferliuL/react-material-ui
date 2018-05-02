@@ -68,21 +68,21 @@ export default class ButtonGroup extends React.Component {
         MessageBox.confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           type: 'warning'
         }).then(() => {
-          fetch('http://' + IPserver(true) + '/api/Menu/DeleteMenu?PK='+Form.PK,{method:"GET"})
-          .then((res)=>res.json())
-          .then(res=>{
-            if(res === 'True'){
-              Message({
-                type: 'success',
-                message: '删除成功!'
-              });
-            }else{
-              Message({
-                type: 'error',
-                message: '删除失败!'
-              });
-            }
-          })
+          fetch('http://' + IPserver(true) + '/api/Menu/DeleteMenu?PK=' + Form.PK, { method: "GET" })
+            .then((res) => res.json())
+            .then(res => {
+              if (res === 'True') {
+                Message({
+                  type: 'success',
+                  message: '删除成功!'
+                });
+              } else {
+                Message({
+                  type: 'error',
+                  message: '删除失败!'
+                });
+              }
+            })
           // console.log(Form)
           this.props.Refresh()
         }).catch(() => {
@@ -92,6 +92,8 @@ export default class ButtonGroup extends React.Component {
           });
         });
       }
+    } else {
+      window.location.reload()
     }
   }
   ChooseVisible() {
@@ -108,7 +110,7 @@ export default class ButtonGroup extends React.Component {
         <Button.Group>
           <Button type="primary" onClick={this.handleAddRoot.bind(this, Form, 'Root')}>添加根</Button>
           <Button type="primary" onClick={this.handleAddRoot.bind(this, Form, 'Level')}>添加下级</Button>
-          <Button type="primary">刷新</Button>
+          <Button type="primary" onClick={this.handleAddRoot.bind(this, Form, 'Refersh')}>刷新</Button>
           <Button type="primary" onClick={this.handleAddRoot.bind(this, Form, 'Edit')}>编辑</Button>
           <Button type="primary" onClick={this.handleAddRoot.bind(this, Form, 'Cancel')}>删除</Button>
         </Button.Group>

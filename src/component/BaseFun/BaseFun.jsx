@@ -164,18 +164,6 @@ function IPserver(TF) {
 
 export { IPserver }
 
-
-function getFetch(URL) {
-    return new Promise((fulfilled, reject) => {
-        fetch(URL, { method: "GET" })
-            .then((response) => response.json())
-            .then(data => fulfilled(data))
-            .catch(error => reject(error))
-    })
-}
-
-export { getFetch }
-
 function getTime() {
     var myDate = new Date()
     var mytime
@@ -216,3 +204,45 @@ function getTime() {
 }
 
 export { getTime }
+
+/**
+ * 
+ * @param {链接} URL 
+ * @param {内容} postBody 
+ */
+function postFetch(URL, postBody, Callback) {
+    let myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    let request = new Request(URL, {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify(postBody),
+        headers: myHeaders
+    });
+    fetch(request)
+        .then(response => response.json())
+        .then(result => {
+            Callback(result)
+        })
+        .catch(res => {
+            console.log(res)
+        })
+}
+
+export { postFetch }
+
+/**
+ * 
+ * @param {链接} URL 
+ *
+ */
+function getFetch(URL, Callback) {
+    fetch(URL, { method: "GET" })
+        .then((response) => response.json())
+        .then(data => {
+            Callback(data)
+        })
+        .catch(error => error)
+}
+
+export { getFetch }

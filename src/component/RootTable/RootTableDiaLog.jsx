@@ -168,6 +168,5 @@ export default class RootTableDiaLog extends React.Component {
         //     .catch(res => {
         //         console.log(res)
         //     })
-
     }
 }

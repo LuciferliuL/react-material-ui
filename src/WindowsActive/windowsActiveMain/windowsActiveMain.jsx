@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, Button, Input, Layout } from 'element-react'
-import ActiveTable from '../../Tables/Tables'
+import Tables from '../../Tables/Tables'
 import Paginations from '../../Tables/Pagination'
-import {MathArray} from '../../Tables/MathTable'
+import { MathArray } from '../../Tables/MathTable'
 import 'isomorphic-fetch'
 import { postFetch, getFetch, IPserver } from '../../component/BaseFun/BaseFun'
 //窗体行为编辑
@@ -28,7 +28,8 @@ export default class windowsActiveMain extends React.Component {
                     prop: 'ActionType'
                 }, {
                     label: 'Author',
-                    prop: 'Author'
+                    prop: 'Author',
+                    width: 100
                 }, {
                     label: 'CreateTime',
                     prop: 'CreateTime'
@@ -37,22 +38,25 @@ export default class windowsActiveMain extends React.Component {
                     prop: 'LastModifyTime'
                 }, {
                     label: 'BranchID',
-                    prop: 'BranchID'
+                    prop: 'BranchID',
+                    width: 120
                 }, {
                     label: "操作",
                     prop: "address",
+                    width: 250,
                     render: function () {
                         return (
                             <span>
+                                <Button plain={true} type="success" size="small">查看</Button>
                                 <Button plain={true} type="info" size="small">编辑</Button>
-                                <Button type="danger" size="small">删除</Button>
+                                <Button plain={true} type="danger" size="small">删除</Button>
                             </span>
                         )
                     }
                 }
             ],
             PageNum: 0,//总条目
-            data:[]
+            data: []
         }
     }
 
@@ -60,11 +64,11 @@ export default class windowsActiveMain extends React.Component {
         // console.log(this.state.InputValue)
         let URL = 'http://' + IPserver(true) + '/api/ActionInitial/GetListActionList?BranchId=STD&strQuery=' + this.state.InputValue
         getFetch(URL, (data) => {
-            console.log(data)
+            // console.log(data)
             this.setState({
-                PageNum: data.length ,
-                data:MathArray(data,50),
-                TableData:MathArray(data,50)[0]//初始化第一次
+                PageNum: data.length,
+                data: MathArray(data, 50),
+                TableData: MathArray(data, 50)[0]//初始化第一次
             })
         })
     }
@@ -73,10 +77,10 @@ export default class windowsActiveMain extends React.Component {
             InputValue: value
         })
     }
-    pageChange(num){//页码  渲染对应数据
-            this.setState({
-                TableData:this.state.data[num - 1]
-            })       
+    pageChange(num) {//页码  渲染对应数据
+        this.setState({
+            TableData: this.state.data[num - 1]
+        })
     }
     render() {
         return (
@@ -95,7 +99,7 @@ export default class windowsActiveMain extends React.Component {
                             </span>
                         </div>
                     }>
-                    <ActiveTable TableData={this.state.TableData} Columns={this.state.Columns}></ActiveTable>
+                    <Tables TableData={this.state.TableData} Columns={this.state.Columns}></Tables>
                     <Paginations PageNum={this.state.PageNum} pageChange={this.pageChange.bind(this)}></Paginations>
                 </Card>
             </Layout.Row>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Icon, Button, Tag, } from 'element-react';
+import { Table} from 'element-react';
 /**
  * 1.传入表头属性columns
  * 2.传入处理的数据TableData

@@ -16,11 +16,11 @@ export default class windowsActiveMain extends React.Component {
             PageNum: 0,//总条目
             data: [],//总数据
             formData: {//传递给表格的数据
-                id:0,//判断增删改查  0123
+                id: 0,//判断增删改查  0123
                 dialogVisible3: false,//是否展开弹框
-                data:{}
+                data: {}
             },
-            StatData:{}//状态管理
+            StatData: {}//状态管理
         }
         this.table = {
             Columns: [
@@ -54,11 +54,11 @@ export default class windowsActiveMain extends React.Component {
                 }, {
                     label: '删除',
                     width: 180,
-                    render:()=>{
-                        return(
+                    render: () => {
+                        return (
                             <span>
-                                <Button type='danger' plain={true} size='small' onClick={this.Dialog.bind(this,3)}>查看</Button>
-                                <Button type='danger' plain={true} size='small' onClick={this.Dialog.bind(this,1)}>删除</Button>
+                                <Button type='info' plain={true} size='small' onClick={this.Dialog.bind(this, 3)}>查看</Button>
+                                <Button type='danger' plain={true} size='small' onClick={this.Dialog.bind(this, 1)}>删除</Button>
                             </span>
                         )
                     }
@@ -90,29 +90,34 @@ export default class windowsActiveMain extends React.Component {
         })
     }
     //表格点击修改数据
-    SonTable(item){
+    SonTable(item) {
         // console.log(item)
         this.setState({
-            formData:{
-                id:this.state.StatData.id,
-                dialogVisible3:this.state.StatData.dialogVisible3,
-                data:item
+            formData: {
+                id: this.state.StatData.id,
+                dialogVisible3: this.state.StatData.dialogVisible3,
+                data: item
             }
         })
+        setTimeout(() => {
+            this.setState({
+                StatData: { dialogVisible3: false, id: '', data: {} }
+            })
+        }, 1000);
     }
     //增删改查  0123
     Dialog(id, event) {
         if (id === 0) {//增加
-            this.setState({formData:{dialogVisible3: true, id:id,data:{}}})
+            this.setState({ formData: { dialogVisible3: true, id: id, data: {} } })
         } else if (id === 1) {//删除
             //TODO  直接发送PK   删除
         } else {//查看
-            this.setState({StatData:{dialogVisible3: true, id:id}})
+            this.setState({ StatData: { dialogVisible3: true, id: id, data: {} } })
         }
     }
     //子页面控制显示
-    SonServer() {
-        this.setState({formData:{dialogVisible3: false, id:'', data:{}}})
+    SonServer(v) {
+        this.setState({ formData: { dialogVisible3: false, id: v, data: {} } })
     }
     render() {
         const TableData = this.state.TableData
